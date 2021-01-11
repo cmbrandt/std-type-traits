@@ -15,7 +15,7 @@ template <class T, T v> struct integral_constant;
 
 template <bool B>
   using bool_constant = integral_constant<bool, B>;
-
+/*
 using true_type  = bool_constant<true>;
 using false_type = bool_constant<false>;
 
@@ -74,15 +74,24 @@ template <class T>
   using inline constexpr bool is_class_v          = is_void<T>::value;
 template <class T>
   using inline constexpr bool is_function_v       = is_void<T>::value;
-
-
-
+*/
 
 
 //
-// Declarations
+// Helper classes
 
-// ...
+// integral_constant
+template <class T, T v>
+struct integral_constant {
+
+    static constexpr T value = v;
+
+    using value_type = T;
+    using type       = integral_constant; // using injected-class-name
+
+    constexpr operator   value_type() const noexcept { return value; }
+    constexpr value_type operator()() const noexcept { return value; }
+};
 
 
 
