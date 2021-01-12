@@ -5,8 +5,5 @@
 
 int main()
 {
-
-  std::cout << "\ncmb::integral_constant<5>::value = "
-            << cmb::integral_constant<5>::value
-            << std::endl;
+  std::cout << "cmb::true_type = " << cmb::true_type() << std::endl; // = 1
 }

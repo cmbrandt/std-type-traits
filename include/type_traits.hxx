@@ -15,10 +15,11 @@ template <class T, T v> struct integral_constant;
 
 template <bool B>
   using bool_constant = integral_constant<bool, B>;
-/*
+
 using true_type  = bool_constant<true>;
 using false_type = bool_constant<false>;
 
+///*
 template <class T> struct is_void;
 template <class T> struct is_null_pointer;
 template <class T> struct is_integral;
@@ -37,6 +38,7 @@ template <class T> struct remove_const;
 template <class T> struct remove_volatile;
 template <class T> struct remove_cv;
 
+/*
 tempalte <class T>
   using remove_const_t    = typename remove_const<T>::type;
 tempalte <class T>
@@ -74,13 +76,12 @@ template <class T>
   using inline constexpr bool is_class_v          = is_void<T>::value;
 template <class T>
   using inline constexpr bool is_function_v       = is_void<T>::value;
-*/
+// */
 
 
 //
 // Helper classes
 
-// integral_constant
 template <class T, T v>
 struct integral_constant {
 
