@@ -3,6 +3,7 @@
 #include <iostream>
 #include "include/type_traits.hxx"
 
+
 int main()
 {
   std::cout <<   "cmb::bool_constant<true>::value  = " // = 1
