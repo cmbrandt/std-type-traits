@@ -6,5 +6,11 @@
 
 int main()
 {
-  std::cout << "Done." << std::endl;
+  using type1 = cmb::remove_const<const in>::type;
+
+  using type2 = cmb::remove_const_t<const int>;
+
+  std::cout <<   " = " << cmb::same_as_v<int, type1>
+            << "\n = " << cmb::same_as_v<int, type2>
+            << std::endl;
 }
