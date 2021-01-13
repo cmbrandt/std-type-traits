@@ -1,7 +1,7 @@
 # C++ compiler, compiler flags, and include statement
 CXX      := g++-10
 CXXFLAGS := -Wall -Wpedantic -Wextra -std=c++17
-CXXINCLD := -I $(HOME)/projects/stl-algorithms/include
+CXXINCLD := -I $(HOME)/projects/stl-type-traits/include
 TESTOBJS := test_main.o test_helper_class.o test_primary_type_categories.o test_type_relationships.o test_const_volatile_specifiers.o test_other_transformations.o
 
 all: test.exe
