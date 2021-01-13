@@ -4,13 +4,10 @@
 #define TYPE_TRAITS_HXX
 
 
-
 namespace cmb {
-
 
 //
 // Declarations
-
 
 // Helper class
 template <class T, T v> struct integral_constant;
@@ -19,7 +16,6 @@ template <bool B>
   using bool_constant = integral_constant<bool, B>;
 using true_type  = bool_constant<true>;
 using false_type = bool_constant<false>;
-
 
 // Primary type categories
 template <class T> struct is_void;
@@ -57,13 +53,11 @@ template <class T> struct is_function;
 //template <class T>
 //  using inline constexpr bool is_function_v       = is_void<T>::value;
 
-
 // Type relationships
 template <class T, class U> struct is_same;
 
 template <class T, class U>
   constexpr bool is_same_v = is_same<T,U>::value;
-
 
 // Const-volatile specifiers
 template <class T> struct remove_const;
@@ -77,7 +71,6 @@ template <class T>
 template <class T>
   using remove_cv_t       = typename remove_cv<T>::type;
 
-
 // Other transformations
 template <bool B, class T, class F> struct conditional;
 
@@ -85,10 +78,8 @@ template <bool B, class T, class F>
   using conditional_t = typename conditional<B,T,F>::type;
 
 
+
 //
-// Implementations
-
-
 // integral_constant
 
 template <class T, T v>
@@ -104,19 +95,71 @@ struct integral_constant {
 };
 
 
-// Primary type categories
 
-// ----
-// TODO
-// ----
+//
+// is_void
 
 
+
+//
+// is_null_pointer
+
+
+
+//
+// is_integral
+
+
+
+//
+// is_floating_point
+
+
+
+//
+// is_array
+
+
+
+//
+// is_pointer
+
+
+
+//
+// is_lvalue_reference
+
+
+
+//
+// is_rvalue_reference
+
+
+
+//
+// is_union
+
+
+
+//
+// is_class
+
+
+
+//
+// is_function
+
+
+
+//
 // is_same
 
 template <class T, class U> struct is_same      : cmb::false_type { };
 template <class T>          struct is_same<T,T> : cmb::true_type  { };
 
 
+
+//
 // remove_const, remove_volatile, remove_cv
 
 template <class T> struct remove_const<const T>       { using type = T; };
@@ -126,6 +169,8 @@ template <class T> struct remove_cv<volatile T>       { using type = T; };
 template <class T> struct remove_cv<const volatile T> { using type = T; };
 
 
+
+//
 // conditional
 
 template <bool B, class T, class F>
@@ -133,7 +178,6 @@ struct conditional { using type = T; };
 
 template <class T, class F>
 struct conditional<false, T, F> { using type = F; };
-
 
 } // namespace cmb
 
