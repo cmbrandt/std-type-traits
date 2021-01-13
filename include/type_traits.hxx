@@ -34,30 +34,28 @@ template <class T> struct is_union;
 template <class T> struct is_class;
 template <class T> struct is_function;
 
-/*
-template <class T>
-  using inline constexpr bool is_void_v           = is_void<T>::value;
-template <class T>
-  using inline constexpr bool is_null_pointer_v   = is_null_pointer<T>::value;
-template <class T>
-  using inline constexpr bool is_integral_v       = is_void<T>::value;
-template <class T>
-  using inline constexpr bool is_floating_point_v = is_void<T>::value;
-template <class T>
-  using inline constexpr bool is_array_v          = is_void<T>::value;
-template <class T>
-  using inline constexpr bool is_pointer_v        = is_void<T>::value;
-template <class T>
-  using inline constexpr bool is_lvalue_v         = is_void<T>::value;
-template <class T>
-  using inline constexpr bool is_rvalue_v         = is_void<T>::value;
-template <class T>
-  using inline constexpr bool is_union_v          = is_void<T>::value;
-template <class T>
-  using inline constexpr bool is_class_v          = is_void<T>::value;
-template <class T>
-  using inline constexpr bool is_function_v       = is_void<T>::value;
-*/
+//template <class T>
+//  using inline constexpr bool is_void_v           = is_void<T>::value;
+//template <class T>
+//  using inline constexpr bool is_null_pointer_v   = is_null_pointer<T>::value;
+//template <class T>
+//  using inline constexpr bool is_integral_v       = is_void<T>::value;
+//template <class T>
+//  using inline constexpr bool is_floating_point_v = is_void<T>::value;
+//template <class T>
+//  using inline constexpr bool is_array_v          = is_void<T>::value;
+//template <class T>
+//  using inline constexpr bool is_pointer_v        = is_void<T>::value;
+//template <class T>
+//  using inline constexpr bool is_lvalue_v         = is_void<T>::value;
+//template <class T>
+//  using inline constexpr bool is_rvalue_v         = is_void<T>::value;
+//template <class T>
+//  using inline constexpr bool is_union_v          = is_void<T>::value;
+//template <class T>
+//  using inline constexpr bool is_class_v          = is_void<T>::value;
+//template <class T>
+//  using inline constexpr bool is_function_v       = is_void<T>::value;
 
 
 // Type relationships
