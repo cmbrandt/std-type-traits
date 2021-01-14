@@ -6,8 +6,9 @@
 
 int main()
 {
-  std::cout <<   "cmb::bool_constant<true>::value  = " // = 1
-            <<    cmb::bool_constant<true>::value
-            << "\ncmb::bool_constant<false>::value = " // = 0
-            <<    cmb::bool_constant<false>::value << std::endl;
+  std::cout <<   "cmb::bool_constant<true>::value  = "
+            <<    cmb::bool_constant<true>::value  // = 1
+            << "\ncmb::bool_constant<false>::value = "
+            <<    cmb::bool_constant<false>::value // = 0
+            << std::endl;
 }

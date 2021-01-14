@@ -88,7 +88,7 @@ struct integral_constant {
   static constexpr T value{v};
 
   using value_type = T;
-  using type       = integral_constant; // using injected-class-name
+  using type       = integral_constant;
 
   constexpr operator   value_type() const noexcept { return value; }
   constexpr value_type operator()() const noexcept { return value; }
@@ -162,11 +162,11 @@ template <class T>          struct is_same<T,T> : cmb::true_type  { };
 //
 // remove_const, remove_volatile, remove_cv
 
-template <class T> struct remove_const<const T>       { using type = T; };
-template <class T> struct remove_volatile<volatile T> { using type = T; };
-template <class T> struct remove_cv<const T>          { using type = T; };
-template <class T> struct remove_cv<volatile T>       { using type = T; };
-template <class T> struct remove_cv<const volatile T> { using type = T; };
+template <class T> struct remove_const<T const>       { using type = T; };
+template <class T> struct remove_volatile<T volatile> { using type = T; };
+template <class T> struct remove_cv<T const>          { using type = T; };
+template <class T> struct remove_cv<T volatile>       { using type = T; };
+template <class T> struct remove_cv<T const volatile> { using type = T; };
 
 
 

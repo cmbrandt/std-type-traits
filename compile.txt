@@ -1,25 +1,23 @@
 
-g++-9 -std=c++17 -Wall -Wpedantic -Wextra integral_constant.cxx   -o integral.exe
-g++-9 -std=c++17 -Wall -Wpedantic -Wextra bool_constant.cxx       -o bool.exe
-g++-9 -std=c++17 -Wall -Wpedantic -Wextra true_type.cxx           -o true.exe
-g++-9 -std=c++17 -Wall -Wpedantic -Wextra false_type.cxx          -o false.exe
+g++-9 -std=c++17 -Wall integral_constant.cxx   -o integral.exe
+g++-9 -std=c++17 -Wall bool_constant.cxx       -o bool.exe
+g++-9 -std=c++17 -Wall true_type.cxx           -o true.exe
+g++-9 -std=c++17 -Wall false_type.cxx          -o false.exe
 
-g++-9 -std=c++17 -Wall -Wpedantic -Wextra is_void.cxx             -o is_void.exe
-g++-9 -std=c++17 -Wall -Wpedantic -Wextra is_null_pointer.cxx     -o is_null.exe
-g++-9 -std=c++17 -Wall -Wpedantic -Wextra is_integral.cxx         -o is_int.exe
-g++-9 -std=c++17 -Wall -Wpedantic -Wextra is_floating_point.cxx   -o is_fp.exe
-g++-9 -std=c++17 -Wall -Wpedantic -Wextra is_array.cxx            -o is_arr.exe
-g++-9 -std=c++17 -Wall -Wpedantic -Wextra is_pointer.cxx          -o is_ptr.exe
-g++-9 -std=c++17 -Wall -Wpedantic -Wextra is_lvalue_reference.cxx -o is_lval.exe
-g++-9 -std=c++17 -Wall -Wpedantic -Wextra is_rvalue_reference.cxx -o is_rval.exe
-g++-9 -std=c++17 -Wall -Wpedantic -Wextra is_union.cxx            -o is_union.exe
-g++-9 -std=c++17 -Wall -Wpedantic -Wextra is_class.cxx            -o is_class.exe
-g++-9 -std=c++17 -Wall -Wpedantic -Wextra is_function.cxx         -o is_func.exe
+g++-9 -std=c++17 -Wall is_void.cxx             -o is_void.exe
+g++-9 -std=c++17 -Wall is_null_pointer.cxx     -o is_null.exe
+g++-9 -std=c++17 -Wall is_integral.cxx         -o is_int.exe
+g++-9 -std=c++17 -Wall is_floating_point.cxx   -o is_fp.exe
+g++-9 -std=c++17 -Wall is_array.cxx            -o is_arr.exe
+g++-9 -std=c++17 -Wall is_pointer.cxx          -o is_ptr.exe
+g++-9 -std=c++17 -Wall is_lvalue_reference.cxx -o is_lval.exe
+g++-9 -std=c++17 -Wall is_rvalue_reference.cxx -o is_rval.exe
+g++-9 -std=c++17 -Wall is_union.cxx            -o is_union.exe
+g++-9 -std=c++17 -Wall is_class.cxx            -o is_class.exe
+g++-9 -std=c++17 -Wall is_function.cxx         -o is_func.exe
 
-g++-9 -std=c++17 -Wall -Wpedantic -Wextra is_same.cxx             -o is_same.exe
-
-g++-9 -std=c++17 -Wall -Wpedantic -Wextra remove_const.cxx        -o rm_const.exe
-g++-9 -std=c++17 -Wall -Wpedantic -Wextra remove_volatile.cxx     -o rm_vol.exe
-g++-9 -std=c++17 -Wall -Wpedantic -Wextra remove_cv.cxx           -o rm_cv.exe
-
-g++-9 -std=c++17 -Wall -Wpedantic -Wextra conditional.cxx         -o cond.exe
+g++-9 -std=c++17 -Wall is_same.cxx             -o is_same.exe
+g++-9 -std=c++17 -Wall remove_const.cxx        -o rm_const.exe
+g++-9 -std=c++17 -Wall remove_volatile.cxx     -o rm_vol.exe
+g++-9 -std=c++17 -Wall remove_cv.cxx           -o rm_cv.exe
+g++-9 -std=c++17 -Wall conditional.cxx         -o cond.exe

@@ -7,15 +7,15 @@
 
 int main()
 {
-  using Type_one   = cmb::conditional<true,  int, double>::type;
-  using Type_two   = cmb::conditional<false, int, double>::type;
+  using type1 = cmb::conditional<true,  int, double>::type;
+  using type2 = cmb::conditional<false, int, double>::type;
 
-  using Type_three = cmb::conditional_t<true,  int, double>;
-  using Type_four  = cmb::conditional_t<false, int, double>;
+  using type3 = cmb::conditional_t<true,  int, double>;
+  using type4 = cmb::conditional_t<false, int, double>;
 
-  std::cout <<   "Type_one   = " << typeid(Type_one  ).name() // = i
-            << "\nType_two   = " << typeid(Type_two  ).name() // = d
-            << "\nType_three = " << typeid(Type_three).name() // = i
-            << "\nType_four  = " << typeid(Type_four ).name() // = d
+  std::cout <<   "type1 = " << typeid(type1).name() // = i
+            << "\ntype2 = " << typeid(type2).name() // = d
+            << "\ntype3 = " << typeid(type3).name() // = i
+            << "\ntype4 = " << typeid(type4).name() // = d
             << std::endl;
 }

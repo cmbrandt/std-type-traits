@@ -7,5 +7,6 @@
 int main()
 {
   std::cout << "cmb::integral_constant<int, 5>::value = "
-            <<  cmb::integral_constant<int, 5>::value << std::endl;
+            <<  cmb::integral_constant<int, 5>::value // = 5
+            << std::endl;
 }
