@@ -13,9 +13,9 @@ namespace cmb {
 template <class T, T v> struct integral_constant;
 
 template <bool B>
-  using bool_constant = integral_constant<bool, B>;
-using true_type  = bool_constant<true>;
-using false_type = bool_constant<false>;
+  using bool_constant = cmb::integral_constant<bool, B>;
+using true_type  = cmb::bool_constant<true>;
+using false_type = cmb::bool_constant<false>;
 
 // Primary type categories
 template <class T> struct is_void;
@@ -30,34 +30,34 @@ template <class T> struct is_union;
 template <class T> struct is_class;
 template <class T> struct is_function;
 
+template <class T>
+  using inline constexpr bool is_void_v           = cmb::is_void<T>::value;
+template <class T>
+  using inline constexpr bool is_null_pointer_v   = cmb::is_null_pointer<T>::value;
+template <class T>
+  using inline constexpr bool is_integral_v       = cmb::is_integral<T>::value;
+template <class T>
+  using inline constexpr bool is_floating_point_v = cmb::is_floating_point<T>::value;
 //template <class T>
-//  using inline constexpr bool is_void_v           = is_void<T>::value;
+//  using inline constexpr bool is_array_v          = cmb::is_array<T>::value;
 //template <class T>
-//  using inline constexpr bool is_null_pointer_v   = is_null_pointer<T>::value;
+//  using inline constexpr bool is_pointer_v        = cmb::is_pointer<T>::value;
 //template <class T>
-//  using inline constexpr bool is_integral_v       = is_void<T>::value;
+//  using inline constexpr bool is_lvalue_v         = cmb::is_lvalue_reference<T>::value;
 //template <class T>
-//  using inline constexpr bool is_floating_point_v = is_void<T>::value;
+//  using inline constexpr bool is_rvalue_v         = cmb::is_rvalue_reference<T>::value;
 //template <class T>
-//  using inline constexpr bool is_array_v          = is_void<T>::value;
+//  using inline constexpr bool is_union_v          = cmb::is_union<T>::value;
 //template <class T>
-//  using inline constexpr bool is_pointer_v        = is_void<T>::value;
+//  using inline constexpr bool is_class_v          = cmb::is_class<T>::value;
 //template <class T>
-//  using inline constexpr bool is_lvalue_v         = is_void<T>::value;
-//template <class T>
-//  using inline constexpr bool is_rvalue_v         = is_void<T>::value;
-//template <class T>
-//  using inline constexpr bool is_union_v          = is_void<T>::value;
-//template <class T>
-//  using inline constexpr bool is_class_v          = is_void<T>::value;
-//template <class T>
-//  using inline constexpr bool is_function_v       = is_void<T>::value;
+//  using inline constexpr bool is_function_v       = cmb::is_function<T>::value;
 
 // Type relationships
 template <class T, class U> struct is_same;
 
 template <class T, class U>
-  constexpr bool is_same_v = is_same<T,U>::value;
+  constexpr bool is_same_v = cmb::is_same<T,U>::value;
 
 // Const-volatile specifiers
 template <class T> struct remove_const;
@@ -65,17 +65,17 @@ template <class T> struct remove_volatile;
 template <class T> struct remove_cv;
 
 template <class T>
-  using remove_const_t    = typename remove_const<T>::type;
+  using remove_const_t    = typename cmb::remove_const<T>::type;
 template <class T>
-  using remove_volatile_t = typename remove_volatile<T>::type;
+  using remove_volatile_t = typename cmb::remove_volatile<T>::type;
 template <class T>
-  using remove_cv_t       = typename remove_cv<T>::type;
+  using remove_cv_t       = typename cmb::remove_cv<T>::type;
 
 // Other transformations
 template <bool B, class T, class F> struct conditional;
 
 template <bool B, class T, class F>
-  using conditional_t = typename conditional<B,T,F>::type;
+  using conditional_t = typename cmb::conditional<B,T,F>::type;
 
 
 
@@ -88,7 +88,7 @@ struct integral_constant {
   static constexpr T value{v};
 
   using value_type = T;
-  using type       = integral_constant;
+  using type       = cmb::integral_constant;
 
   constexpr operator   value_type() const noexcept { return value; }
   constexpr value_type operator()() const noexcept { return value; }
@@ -99,20 +99,70 @@ struct integral_constant {
 //
 // is_void
 
+template <class T> struct is_void_impl       : public cmb::false_type { };
+template <class T> struct is_void_impl<void> : public cmb::true_type  { };
+
+template <class T>
+struct is_void : cmb::is_void_impl<cmb::remove_cv_t<T>>
+{ };
+
 
 
 //
 // is_null_pointer
+
+template <class T>
+struct is_null_pointer_impl : public cmb::false_type
+{ };
+
+template <class T>
+struct is_null_pointer_impl<std::nullptr_t> : public cmb::true_type
+{ };
+
+template <class T>
+struct is_null_pointer : public cmb::is_null_pointer_impl<cmb::remove_cv_t<T>>
+{ };
 
 
 
 //
 // is_integral
 
+template <class T> struct is_integral_impl                     : public cmb::false_type { };
+template <class T> struct is_integral_impl<bool>               : public cmb::true_type  { };
+template <class T> struct is_integral_impl<char>               : public cmb::true_type  { };
+template <class T> struct is_integral_impl<signed char>        : public cmb::true_type  { };
+template <class T> struct is_integral_impl<unsigned char>      : public cmb::true_type  { };
+template <class T> struct is_integral_impl<wchar_t>            : public cmb::true_type  { };
+template <class T> struct is_integral_impl<char8_t>            : public cmb::true_type  { };
+template <class T> struct is_integral_impl<char16_t>           : public cmb::true_type  { };
+template <class T> struct is_integral_impl<char32_t>           : public cmb::true_type  { };
+template <class T> struct is_integral_impl<short>              : public cmb::true_type  { };
+template <class T> struct is_integral_impl<unsigned short>     : public cmb::true_type  { };
+template <class T> struct is_integral_impl<int>                : public cmb::true_type  { };
+template <class T> struct is_integral_impl<unsigned int>       : public cmb::true_type  { };
+template <class T> struct is_integral_impl<long>               : public cmb::true_type  { };
+template <class T> struct is_integral_impl<unsigned long>      : public cmb::true_type  { };
+template <class T> struct is_integral_impl<long long>          : public cmb::true_type  { };
+template <class T> struct is_integral_impl<unsigned long long> : public cmb::true_type  { };
+
+template <class T>
+struct is_integral : public cmb::is_integral_impl<cmb::remove_cv_t<T>>
+{ };
+
 
 
 //
 // is_floating_point
+
+template <class T> struct is_floating_point_impl              : public cmb::false_type { };
+template <class T> struct is_floating_point_impl<float>       : public cmb::true_type  { };
+template <class T> struct is_floating_point_impl<double>      : public cmb::true_type  { };
+template <class T> struct is_floating_point_impl<long double> : public cmb::true_type  { };
+
+template <class T>
+struct is_floating_point : public cmb::is_floating_point_impl<cmb::remove_cv_t<T>>
+{ };
 
 
 
@@ -154,16 +204,31 @@ struct integral_constant {
 //
 // is_same
 
-template <class T, class U> struct is_same      : cmb::false_type { };
-template <class T>          struct is_same<T,T> : cmb::true_type  { };
+template <class T, class U> struct is_same      : public cmb::false_type { };
+template <class T>          struct is_same<T,T> : public cmb::true_type  { };
 
 
 
 //
-// remove_const, remove_volatile, remove_cv
+// remove_const
 
-template <class T> struct remove_const<T const>       { using type = T; };
+template <class T> struct remove_const          { using type = T; };
+template <class T> struct remove_const<T const> { using type = T; };
+
+
+
+//
+// remove_volatile
+
+template <class T> struct remove_volatile             { using type = T; };
 template <class T> struct remove_volatile<T volatile> { using type = T; };
+
+
+
+//
+// remove_cv
+
+template <class T> struct remove_cv                   { using type = T; };
 template <class T> struct remove_cv<T const>          { using type = T; };
 template <class T> struct remove_cv<T volatile>       { using type = T; };
 template <class T> struct remove_cv<T const volatile> { using type = T; };
