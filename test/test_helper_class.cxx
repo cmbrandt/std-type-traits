@@ -15,9 +15,9 @@ void test_helper_class()
   fail = test_false_type(fail);
 
   if (fail == 0)
-    std::cout << "\ntest_helper_class() passed with zero errors." << std::endl;
+    std::cout << "\ntest_helper_class()            passed with zero errors." << std::endl;
   else
-    std::cout << "\ntest_helper_class() had " << fail << " error(s)." << std::endl;
+    std::cout << "\ntest_helper_class()            had " << fail << " error(s)." << std::endl;
 }
 
 
@@ -54,4 +54,3 @@ int test_false_type(int fail)
 
   return fail;
 }
-
