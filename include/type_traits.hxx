@@ -26,9 +26,6 @@ template <class T> struct is_array;
 template <class T> struct is_pointer;
 template <class T> struct is_lvalue_reference;
 template <class T> struct is_rvalue_reference;
-template <class T> struct is_union;
-template <class T> struct is_class;
-template <class T> struct is_function;
 
 template <class T>
   using inline constexpr bool is_void_v           = cmb::is_void<T>::value;
@@ -40,18 +37,12 @@ template <class T>
   using inline constexpr bool is_floating_point_v = cmb::is_floating_point<T>::value;
 template <class T>
   using inline constexpr bool is_array_v          = cmb::is_array<T>::value;
-//template <class T>
-//  using inline constexpr bool is_pointer_v        = cmb::is_pointer<T>::value;
+template <class T>
+  using inline constexpr bool is_pointer_v        = cmb::is_pointer<T>::value;
 template <class T>
   using inline constexpr bool is_lvalue_v         = cmb::is_lvalue_reference<T>::value;
 template <class T>
   using inline constexpr bool is_rvalue_v         = cmb::is_rvalue_reference<T>::value;
-//template <class T>
-//  using inline constexpr bool is_union_v          = cmb::is_union<T>::value;
-//template <class T>
-//  using inline constexpr bool is_class_v          = cmb::is_class<T>::value;
-//template <class T>
-//  using inline constexpr bool is_function_v       = cmb::is_function<T>::value;
 
 // Type relationships
 template <class T, class U> struct is_same;
@@ -107,7 +98,8 @@ template <class T> struct is_void_impl<void> : public cmb::true_type  { };
 } // namespace detail
 
 template <class T>
-struct is_void : cmb::detail::is_void_impl<cmb::remove_cv_t<T>>
+struct is_void
+: cmb::detail::is_void_impl<cmb::remove_cv_t<T>>
 { };
 
 
@@ -123,7 +115,8 @@ template <class T> struct is_null_pointer_impl<std::nullptr_t> : public cmb::tru
 } // namespace detail
 
 template <class T>
-struct is_null_pointer : public cmb::detail::is_null_pointer_impl<cmb::remove_cv_t<T>>
+struct is_null_pointer
+: public cmb::detail::is_null_pointer_impl<cmb::remove_cv_t<T>>
 { };
 
 
@@ -153,7 +146,8 @@ template <class T> struct is_integral_impl<unsigned long long> : public cmb::tru
 } // namespace detail
 
 template <class T>
-struct is_integral : public cmb::detail::is_integral_impl<cmb::remove_cv_t<T>>
+struct is_integral
+: public cmb::detail::is_integral_impl<cmb::remove_cv_t<T>>
 { };
 
 
@@ -171,7 +165,8 @@ template <class T> struct is_floating_point_impl<long double> : public cmb::true
 } // namespace detail
 
 template <class T>
-struct is_floating_point : public cmb::detail::is_floating_point_impl<cmb::remove_cv_t<T>>
+struct is_floating_point
+: public cmb::detail::is_floating_point_impl<cmb::remove_cv_t<T>>
 { };
 
 
@@ -188,6 +183,17 @@ template <class T, size_t N> struct is_array<T[N]> : public cmb::true_type  { };
 //
 // is_pointer
 
+namespace detail {
+
+template <class T> struct is_pointer_impl     : public cmb::false_type { };
+template <class T> struct is_pointer_impl<T*> : public cmb::true_type  { };
+
+} // namespace detail
+
+template <class T> struct is_pointer
+: public cmb::detail::is_pointer_impl<cmb::remove_cv_t<T>>
+{ };
+
 
 
 //
@@ -203,21 +209,6 @@ template <class T> struct is_lvalue_reference<T&> : public cmb::true_type  { };
 
 template <class T> struct is_rvalue_reference      : public cmb::false_type { };
 template <class T> struct is_rvalue_reference<T&&> : public cmb::true_type  { };
-
-
-
-//
-// is_union
-
-
-
-//
-// is_class
-
-
-
-//
-// is_function
 
 
 
