@@ -44,6 +44,15 @@ template <class T>
 template <class T>
   using inline constexpr bool is_rvalue_v         = cmb::is_rvalue_reference<T>::value;
 
+// Supported operations
+template <class T> is_copy_assignable;
+template <class T> is_move_assignable;
+
+template <class T> is_copy_assignable;
+  using is_copy_assignable_v = cmb::is_copy_assignable<T>::value;
+template <class T> is_move_assignable;
+  using is_move_assignable_v = cmb::is_move_assignable<T>::value;
+
 // Type relationships
 template <class T, class U> struct is_same;
 
@@ -63,11 +72,17 @@ template <class T>
   using remove_cv_t       = typename cmb::remove_cv<T>::type;
 
 // Other transformations
+template <bool B, class T = void>   struct enable_if;
 template <bool B, class T, class F> struct conditional;
 
+
+template <bool B, class T = void>
+  using enable_if_t   = typename enable_if<B,T>::type;
 template <bool B, class T, class F>
   using conditional_t = typename cmb::conditional<B,T,F>::type;
 
+template <class...>
+  using void_t = void;
 
 
 //
