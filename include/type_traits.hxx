@@ -95,7 +95,6 @@ template <class...>
   using void_t = void;
 
 
-
 //
 // integral_constant
 
@@ -110,7 +109,6 @@ struct integral_constant {
   constexpr operator   value_type() const noexcept { return value; }
   constexpr value_type operator()() const noexcept { return value; }
 };
-
 
 
 //
@@ -128,7 +126,6 @@ struct is_void
 : detail::is_void_impl<cmb::remove_cv_t<T>> { };
 
 
-
 //
 // is_null_pointer
 
@@ -142,7 +139,6 @@ template <>        struct is_null_pointer_impl<std::nullptr_t> : public cmb::tru
 template <class T>
 struct is_null_pointer
 : public cmb::detail::is_null_pointer_impl<cmb::remove_cv_t<T>> { };
-
 
 
 //
@@ -174,7 +170,6 @@ struct is_integral
 : public cmb::detail::is_integral_impl<cmb::remove_cv_t<T>> { };
 
 
-
 //
 // is_floating_point
 
@@ -192,14 +187,12 @@ struct is_floating_point
 : public cmb::detail::is_floating_point_impl<cmb::remove_cv_t<T>> { };
 
 
-
 //
 // is_array
 
 template <class T>           struct is_array       : public cmb::false_type { };
 template <class T>           struct is_array<T[]>  : public cmb::true_type  { };
 template <class T, size_t N> struct is_array<T[N]> : public cmb::true_type  { };
-
 
 
 //
@@ -216,13 +209,11 @@ template <class T> struct is_pointer
 : public cmb::detail::is_pointer_impl<cmb::remove_cv_t<T>> { };
 
 
-
 //
 // is_lvalue_reference
 
 template <class T> struct is_lvalue_reference     : public cmb::false_type { };
 template <class T> struct is_lvalue_reference<T&> : public cmb::true_type  { };
-
 
 
 //
@@ -232,13 +223,11 @@ template <class T> struct is_rvalue_reference      : public cmb::false_type { };
 template <class T> struct is_rvalue_reference<T&&> : public cmb::true_type  { };
 
 
-
 //
 // is_same
 
 template <class T, class U> struct is_same      : public cmb::false_type { };
 template <class T>          struct is_same<T,T> : public cmb::true_type  { };
-
 
 
 //
@@ -248,13 +237,11 @@ template <class T> struct remove_const          { using type = T; };
 template <class T> struct remove_const<T const> { using type = T; };
 
 
-
 //
 // remove_volatile
 
 template <class T> struct remove_volatile             { using type = T; };
 template <class T> struct remove_volatile<T volatile> { using type = T; };
-
 
 
 //
@@ -264,7 +251,6 @@ template <class T> struct remove_cv                   { using type = T; };
 template <class T> struct remove_cv<T const>          { using type = T; };
 template <class T> struct remove_cv<T volatile>       { using type = T; };
 template <class T> struct remove_cv<T const volatile> { using type = T; };
-
 
 
 //

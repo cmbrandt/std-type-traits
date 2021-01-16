@@ -1,4 +1,4 @@
-// remove_same.cxx
+// remove_const.cxx
 
 #include <iostream>
 #include "include/type_traits.hxx"
