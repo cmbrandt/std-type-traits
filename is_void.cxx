@@ -6,5 +6,7 @@
 
 int main()
 {
-  std::cout << "Done." << std::endl;
+  std::cout <<   "cmb::is_void<void>::value = " << cmb::is_void<void>::value
+            << "\ncmb::is_void_v<int>       = " << cmb::is_void_v<int>
+            << std::endl;
 }
