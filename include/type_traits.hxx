@@ -31,21 +31,21 @@ template <class T> struct is_lvalue_reference;
 template <class T> struct is_rvalue_reference;
 
 template <class T>
-  constexpr bool is_void_v           = cmb::is_void<T>::value;
+  constexpr bool is_void_v             = cmb::is_void<T>::value;
 template <class T>
-  constexpr bool is_null_pointer_v   = cmb::is_null_pointer<T>::value;
+  constexpr bool is_null_pointer_v     = cmb::is_null_pointer<T>::value;
 template <class T>
-  constexpr bool is_integral_v       = cmb::is_integral<T>::value;
+  constexpr bool is_integral_v         = cmb::is_integral<T>::value;
 template <class T>
-  constexpr bool is_floating_point_v = cmb::is_floating_point<T>::value;
+  constexpr bool is_floating_point_v   = cmb::is_floating_point<T>::value;
 template <class T>
-  constexpr bool is_array_v          = cmb::is_array<T>::value;
+  constexpr bool is_array_v            = cmb::is_array<T>::value;
 template <class T>
-  constexpr bool is_pointer_v        = cmb::is_pointer<T>::value;
+  constexpr bool is_pointer_v          = cmb::is_pointer<T>::value;
 template <class T>
-  constexpr bool is_lvalue_v         = cmb::is_lvalue_reference<T>::value;
+  constexpr bool is_lvalue_reference_v = cmb::is_lvalue_reference<T>::value;
 template <class T>
-  constexpr bool is_rvalue_v         = cmb::is_rvalue_reference<T>::value;
+  constexpr bool is_rvalue_reference_v = cmb::is_rvalue_reference<T>::value;
 
 
 // Supported operations
