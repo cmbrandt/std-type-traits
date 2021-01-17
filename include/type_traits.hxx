@@ -9,7 +9,6 @@ namespace cmb {
 //
 // Declarations
 
-
 // Helper class
 
 template <class T, T v> struct integral_constant;
@@ -102,14 +101,8 @@ template <class...>
   using void_t = void;
 
 
-
 //
 // Definitions
-
-
-// Helper metafunction(s)
-
-template <class T> struct or_helper;
 
 // integral_constant
 
@@ -132,7 +125,7 @@ namespace detail
 {
   template <class T> struct is_void_impl       : public cmb::false_type { };
   template <>        struct is_void_impl<void> : public cmb::true_type  { };
-} // namespace detail
+}
 
 template <class T>
 struct is_void
@@ -145,7 +138,7 @@ namespace detail
 {
   template <class T> struct is_null_pointer_impl                 : public cmb::false_type { };
   template <>        struct is_null_pointer_impl<std::nullptr_t> : public cmb::true_type  { };
-} // namespace detail
+}
 
 template <class T>
 struct is_null_pointer
@@ -172,7 +165,7 @@ namespace detail
   template <>        struct is_integral_impl<unsigned long>      : public cmb::true_type  { };
   template <>        struct is_integral_impl<long long>          : public cmb::true_type  { };
   template <>        struct is_integral_impl<unsigned long long> : public cmb::true_type  { };
-} // namespace detail
+}
 
 template <class T>
 struct is_integral
@@ -187,7 +180,7 @@ namespace detail
   template <>        struct is_floating_point_impl<float>       : public cmb::true_type  { };
   template <>        struct is_floating_point_impl<double>      : public cmb::true_type  { };
   template <>        struct is_floating_point_impl<long double> : public cmb::true_type  { };
-} // namespace detail
+}
 
 template <class T>
 struct is_floating_point
@@ -207,7 +200,7 @@ namespace detail
 {
   template <class T> struct is_pointer_impl     : public cmb::false_type { };
   template <class T> struct is_pointer_impl<T*> : public cmb::true_type  { };
-} // namespace detail
+}
 
 template <class T> struct is_pointer
 : public cmb::detail::is_pointer_impl<cmb::remove_cv_t<T>> { };
@@ -238,7 +231,7 @@ namespace detail
 {
   template <class T> struct is_signed_impl     : public cmb::false_type { };
   template <class T> struct is_signed_impl<T*> : public cmb::true_type  { };
-} // namespace detail
+}
 
 template <class T> struct is_signed
 : public cmb::detail::is_signed_impl<cmb::remove_cv_t<T>> { };
