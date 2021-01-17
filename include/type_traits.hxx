@@ -51,10 +51,10 @@ template <class T>
 
 // Composite type categories
 
-template <class T> struct is_arithmetic;
+//template <class T> struct is_arithmetic;
 
-template <class T>
-  constexpr bool is_arithmetic_v = cmb::is_arithmetic;
+//template <class T>
+//  constexpr bool is_arithmetic_v = cmb::is_arithmetic;
 
 
 // Type properties
@@ -86,7 +86,7 @@ template <class T> struct remove_volatile;
 template <class T> struct remove_cv;
 template <class T> struct add_const;
 template <class T> struct add_volatile;
-template <class T> struct add_cv;
+//template <class T> struct add_cv;
 
 template <class T>
   using remove_const_t    = typename cmb::remove_const<T>::type;
@@ -98,8 +98,8 @@ template <class T>
   using add_const_t       = typename cmb::add_const<T>::type;
 template <class T>
   using add_volatile_t    = typename cmb::add_volatile<T>::type;
-template <class T>
-  using add_cv_t          = typename cmb::add_cv<T>::type;
+//template <class T>
+//  using add_cv_t          = typename cmb::add_cv<T>::type;
 
 // Reference modifications
 //template <class T> struct add_lvalue_reference;
@@ -132,7 +132,7 @@ template <class...>
 
 // Helper metafunction(s)
 
-template <class T> struct or_helper
+template <class T> struct or_helper;
 
 // integral_constant
 
@@ -309,7 +309,7 @@ template <class T> struct add_volatile { using type = T volatile; };
 
 // add_cv
 
-template <class T> struct add_cv { using type = T const volatile; };
+//template <class T> struct add_cv { using type = T const volatile; };
 
 
 // enable_if
