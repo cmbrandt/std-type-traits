@@ -1,5 +1,5 @@
 
-g++-9 -std=c++17 -Wall integral_constant.cxx   -o integral.exe
+g++-9 -std=c++17 -Wall -Wpedantic -Wextra integral_constant.cxx   -o integral.exe
 g++-9 -std=c++17 -Wall bool_constant.cxx       -o bool.exe
 g++-9 -std=c++17 -Wall true_type.cxx           -o true.exe
 g++-9 -std=c++17 -Wall false_type.cxx          -o false.exe

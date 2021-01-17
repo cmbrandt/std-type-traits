@@ -9,6 +9,7 @@ namespace cmb {
 //
 // Declarations
 
+
 // Helper class
 
 template <class T, T v> struct integral_constant;
@@ -48,15 +49,18 @@ template <class T>
   constexpr bool is_rvalue_reference_v = cmb::is_rvalue_reference<T>::value;
 
 
-// Supported operations
+// Type properties
 
+template <class T> struct is_signed;
 template <class T> struct is_copy_assignable;
 template <class T> struct is_move_assignable;
 
 //template <class T>
-//  using is_copy_assignable_v = cmb::is_copy_assignable<T>::value;
+//  constexpr bool is_signed_v          = cmb::is_signed<T>::value;
 //template <class T>
-//  using is_move_assignable_v = cmb::is_move_assignable<T>::value;
+//  constexpr bool is_copy_assignable_v = cmb::is_copy_assignable<T>::value;
+//template <class T>
+//  constexpr bool is_move_assignable_v = cmb::is_move_assignable<T>::value;
 
 
 // Type relationships
@@ -95,8 +99,10 @@ template <class...>
   using void_t = void;
 
 
+
 //
 // Definitions
+
 
 // integral_constant
 
@@ -184,8 +190,8 @@ struct is_floating_point
 // is_array
 
 template <class T>           struct is_array       : public cmb::false_type { };
-template <class T>           struct is_array<T[]>  : public cmb::true_type  { };
 template <class T, size_t N> struct is_array<T[N]> : public cmb::true_type  { };
+template <class T>           struct is_array<T[]>  : public cmb::true_type  { };
 
 
 // is_pointer
@@ -210,6 +216,29 @@ template <class T> struct is_lvalue_reference<T&> : public cmb::true_type  { };
 
 template <class T> struct is_rvalue_reference      : public cmb::false_type { };
 template <class T> struct is_rvalue_reference<T&&> : public cmb::true_type  { };
+
+
+// is_signed
+
+namespace detail
+{
+template <class T> struct is_signed_impl     : public cmb::false_type { };
+template <class T> struct is_signed_impl<T*> : public cmb::true_type  { };
+} // namespace detail
+
+template <class T> struct is_signed
+: public cmb::detail::is_signed_impl<cmb::remove_cv_t<T>> { };
+
+
+
+// is_copy_assignable
+
+
+
+
+// is_move_assignable
+
+
 
 
 // is_same
@@ -238,6 +267,11 @@ template <class T> struct remove_cv<T volatile>       { using type = T; };
 template <class T> struct remove_cv<T const volatile> { using type = T; };
 
 
+// enable_if
+
+
+
+
 // conditional
 
 template <bool B, class T, class F>
@@ -245,6 +279,13 @@ struct conditional { using type = T; };
 
 template <class T, class F>
 struct conditional<false, T, F> { using type = F; };
+
+
+// void_t
+
+
+
+
 
 } // namespace cmb
 

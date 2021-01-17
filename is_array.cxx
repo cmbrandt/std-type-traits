@@ -6,5 +6,9 @@
 
 int main()
 {
-  std::cout << "Done." << std::endl;
+  std::cout <<   "cmb::is_array<void>::value = "
+            <<    cmb::is_array<void>::value // = 0
+            << "\ncmb::is_array_v<int[]>     = "
+            <<    cmb::is_array_v<int[]>     // = 1
+            << std::endl;
 }
