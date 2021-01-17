@@ -51,24 +51,10 @@ template <class T>
 
 // Composite type categories
 
-//template <class T> struct is_arithmetic;
+template <class T> struct is_arithmetic;
 
-//template <class T>
-//  constexpr bool is_arithmetic_v = cmb::is_arithmetic;
-
-
-// Type properties
-
-template <class T> struct is_signed;
-template <class T> struct is_copy_assignable;
-template <class T> struct is_move_assignable;
-
-//template <class T>
-//  constexpr bool is_signed_v          = cmb::is_signed<T>::value;
-//template <class T>
-//  constexpr bool is_copy_assignable_v = cmb::is_copy_assignable<T>::value;
-//template <class T>
-//  constexpr bool is_move_assignable_v = cmb::is_move_assignable<T>::value;
+template <class T>
+  constexpr bool is_arithmetic_v = cmb::is_arithmetic<T>::value;
 
 
 // Type relationships
@@ -100,15 +86,6 @@ template <class T>
   using add_volatile_t    = typename cmb::add_volatile<T>::type;
 template <class T>
   using add_cv_t          = typename cmb::add_cv<T>::type;
-
-// Reference modifications
-//template <class T> struct add_lvalue_reference;
-//template <class T> struct add_rvalue_reference;
-
-//template <class T>
-//  using add_lvalue_reference_t = typename cmb::add_lvalue_reference;
-//template <class T>
-//  using add_rvalue_reference_t = typename cmb::add_rvalue_reference;
 
 
 // Other transformations
@@ -228,8 +205,8 @@ template <class T>           struct is_array<T[]>  : public cmb::true_type  { };
 
 namespace detail
 {
-template <class T> struct is_pointer_impl     : public cmb::false_type { };
-template <class T> struct is_pointer_impl<T*> : public cmb::true_type  { };
+  template <class T> struct is_pointer_impl     : public cmb::false_type { };
+  template <class T> struct is_pointer_impl<T*> : public cmb::true_type  { };
 } // namespace detail
 
 template <class T> struct is_pointer
@@ -248,27 +225,23 @@ template <class T> struct is_rvalue_reference      : public cmb::false_type { };
 template <class T> struct is_rvalue_reference<T&&> : public cmb::true_type  { };
 
 
+// is_arithmetic
+
+template <class T> struct is_arithmetic
+: public cmb::integral_constant<bool, cmb::is_integral_v<T> or
+                                      cmb::is_floating_point_v<T>> { };
+
+
 // is_signed
 
 namespace detail
 {
-template <class T> struct is_signed_impl     : public cmb::false_type { };
-template <class T> struct is_signed_impl<T*> : public cmb::true_type  { };
+  template <class T> struct is_signed_impl     : public cmb::false_type { };
+  template <class T> struct is_signed_impl<T*> : public cmb::true_type  { };
 } // namespace detail
 
 template <class T> struct is_signed
 : public cmb::detail::is_signed_impl<cmb::remove_cv_t<T>> { };
-
-
-
-// is_copy_assignable
-
-
-
-
-// is_move_assignable
-
-
 
 
 // is_same
@@ -314,7 +287,8 @@ template <class T> struct add_cv { using type = T const volatile; };
 
 // enable_if
 
-
+template <bool, class T> struct enable_if          { };
+template <class T>       struct enable_if<true, T> { using type = T; };
 
 
 // conditional
@@ -324,13 +298,6 @@ struct conditional { using type = T; };
 
 template <class T, class F>
 struct conditional<false, T, F> { using type = F; };
-
-
-// void_t
-
-
-
-
 
 } // namespace cmb
 
