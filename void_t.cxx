@@ -5,13 +5,18 @@
 
 
 // Helper metafunction
+
+// Base template
 template <class , class = void>
 struct has_member
-: public cmb::false_type { };
+: public cmb::false_type
+{ };
 
+// Partial specialization
 template <class T>
 struct has_member<T, cmb::void_t<decltype(T::member)>>
-: public cmb::true_type { };
+: public cmb::true_type
+{ };
 
 
 // Test struct

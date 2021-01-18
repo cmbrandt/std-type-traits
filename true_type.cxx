@@ -6,5 +6,7 @@
 
 int main()
 {
-  std::cout << "cmb::true_type = " << cmb::true_type() << std::endl; // = 1
+  std::cout << "cmb::true_type = "
+            <<  cmb::true_type() // = 1
+            << std::endl;
 }

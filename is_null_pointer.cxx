@@ -7,8 +7,8 @@
 int main()
 {
   std::cout <<   "cmb::is_null_pointer<void>::value      = "
-            <<    cmb::is_null_pointer<void>::value      // = 1
+            <<    cmb::is_null_pointer<void>::value      // = 0
             << "\ncmb::is_null_pointer_v<std::nullptr_t> = "
-            <<    cmb::is_null_pointer_v<std::nullptr_t> // = 0
+            <<    cmb::is_null_pointer_v<std::nullptr_t> // = 1
             << std::endl;
 }
