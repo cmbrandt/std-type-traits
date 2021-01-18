@@ -15,5 +15,7 @@ times_two(T x)
 
 int main()
 {
-  std::cout << "times_two(2) = " << times_two(5) << std::endl; // = 10
+  std::cout << "times_two(5) = "
+            <<  times_two(5) // = 10
+            << std::endl;
 }

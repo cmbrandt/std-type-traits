@@ -7,7 +7,7 @@
 // Helper metafunction
 
 // Base template
-template <class , class = void>
+template <class, class = void>
 struct has_member
 : public cmb::false_type
 { };
