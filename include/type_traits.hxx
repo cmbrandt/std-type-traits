@@ -121,7 +121,7 @@ namespace detail
 
 template <class T>
 struct is_void
-: detail::is_void_impl<cmb::remove_cv_t<T>>
+: public cmb::detail::is_void_impl<cmb::remove_cv_t<T>>
 { };
 
 
@@ -138,7 +138,7 @@ struct is_null_pointer
 { };
 
 
-// is_integral
+// is_integral [note: wchar8_t is C++20]
 namespace detail
 {
   template <class T> struct is_integral_impl                     : public cmb::false_type { };
@@ -249,8 +249,8 @@ template <class T> struct add_cv { using type = T const volatile; };
 
 
 // enable_if
-template <bool, class T> struct enable_if          { };
-template <class T>       struct enable_if<true, T> { using type = T; };
+template <bool B, class T> struct enable_if          { };
+template <class T>         struct enable_if<true, T> { using type = T; };
 
 
 // conditional
