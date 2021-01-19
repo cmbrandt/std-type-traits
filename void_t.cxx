@@ -14,7 +14,6 @@ struct has_member
 
 // Specialized class template
 template <class T>
-//struct has_member<T, cmb::void_t<decltype(T::member)>>
 struct has_member<T, cmb::void_t<decltype(T::member)>>
 : public cmb::true_type
 { };
