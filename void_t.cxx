@@ -6,14 +6,15 @@
 
 // Helper metafunction
 
-// Base template
-template <class, class = void>
+// Primary class template
+template <class, class = cmb::void_t<>>
 struct has_member
 : public cmb::false_type
 { };
 
-// Partial specialization
+// Specialized class template
 template <class T>
+//struct has_member<T, cmb::void_t<decltype(T::member)>>
 struct has_member<T, cmb::void_t<decltype(T::member)>>
 : public cmb::true_type
 { };
