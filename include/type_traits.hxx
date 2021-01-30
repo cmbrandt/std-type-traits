@@ -47,11 +47,32 @@ template <class T>
 
 
 // Composite type categories
+template <class T> struct is_reference;
 template <class T> struct is_arithmetic;
+template <class T> struct is_fundamental;
+template <class T> struct is_compound;
 
+//template <class T>
+//  constexpr bool is_reference_v   = cmb::is_reference<T>::value;
 template <class T>
-  constexpr bool is_arithmetic_v = cmb::is_arithmetic<T>::value;
+  constexpr bool is_arithmetic_v  = cmb::is_arithmetic<T>::value;
+//template <class T>
+//  constexpr bool is_fundamental_v = cmb::is_fundamental<T>::value;
+//template <class T>
+//  constexpr bool is_compound_v    = cmb::is_compound<T>::value;
 
+
+// Type property queries
+template <class T>                 struct alignment_of;
+template <class T>                 struct rank;
+template <class T, unsigned I = 0> struct extent; // check clang for formatting
+
+//template <class T>
+//  constexpr size_t alignment_of_v = cmb::alignment_of<T>::value;
+//template <class T>
+//  constexpr size_t rank_v         = cmb::rank<T>::value;
+//template <class T, unsigned I = 0>
+//  constexpr size_t extent_v       = cmb::extent<T,I>::value;
 
 // Type relationships
 template <class T, class U> struct is_same;
@@ -82,14 +103,33 @@ template <class T>
   using add_cv_t          = typename cmb::add_cv<T>::type;
 
 
+// Reference modifications
+template <class T> struct remove_reference;
+template <class T> struct add_lvalue_reference;
+template <class T> struct add_rvalue_reference;
+
+//template <class T>
+//  using remove_reference_t     = typename cmb::remove_reference<T>::type;
+//template <class T>
+//  using add_lvalue_reference_t = typename cmb::remove_reference<T>::type;
+//template <class T>
+//  using add_rvalue_reference_t = typename cmb::remove_reference<T>::type;
+
+
 // Other transformations
+template <class T>                  struct decay; // check clang for formatting
+template <class T>                  struct remove_cvref;
 template <bool B, class T = void>   struct enable_if;
 template <bool B, class T, class F> struct conditional;
 
+//template <class T>
+//  using decay_t        = typename cmb::decay<T>::type;
+//template <class T>
+//  using remove_cvref_t = typename cmb::remove_cvref<T>::type;
 template <bool B, class T = void>
-  using enable_if_t   = typename enable_if<B,T>::type;
+  using enable_if_t    = typename cmb::enable_if<B,T>::type;
 template <bool B, class T, class F>
-  using conditional_t = typename cmb::conditional<B,T,F>::type;
+  using conditional_t  = typename cmb::conditional<B,T,F>::type;
 
 template <class...>
   using void_t = void;
