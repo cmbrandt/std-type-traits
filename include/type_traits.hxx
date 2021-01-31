@@ -285,18 +285,18 @@ template <class T> struct is_compound
 template <class T> struct alignment_of
   : public cmb::integral_constant<std::size_t, alignof(T)> { };
 
-/*
+
 // rank
 template <class T> struct rank
-  : public cmb::integral_constant_v<std::size_t, 0> { };
+  : public cmb::integral_constant<std::size_t, 0> { };
 
-template <class T, std::size_t N> struct rank<T[]>
-  : public cmb::integral_constant_v<std::size_t, 1 + cmb::rank_v<T>> { };
+template <class T> struct rank<T[]>
+  : public cmb::integral_constant<std::size_t, 1 + cmb::rank_v<T>> { };
 
 template <class T, std::size_t N> struct rank<T[N]>
-  : public cmb::integral_constant_v<std::size_t, 1 + cmb::rank_v<T>> { };
+  : public cmb::integral_constant<std::size_t, 1 + cmb::rank_v<T>> { };
 
-
+/*
 // extent
 template <class T, unsigned I> struct extent
   : public cmb::integral_constant<std::size_t, 0> { };

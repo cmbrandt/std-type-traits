@@ -4,6 +4,9 @@
 
 int main()
 {
-  std::cout << "Done."
+  std::cout <<   "cmb::rank<int>::value  = "
+            <<    cmb::rank<int>::value  // = 0
+            << "\ncmb::rank_v<int[5][5]> = "
+            <<    cmb::rank_v<int[5][5]> // = 2
             << std::endl;
 }
