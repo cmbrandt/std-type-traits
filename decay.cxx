@@ -4,6 +4,12 @@
 
 int main()
 {
-  std::cout << "Done."
+  using type1 = cmb::decay<int(int)>::type;
+  using type2 = cmb::decay_t<int const&&>;
+
+  std::cout <<   "cmb::is_same_v<int, type1> = "
+            <<    cmb::is_same_v<int, type1> // = 0
+            << "\ncmb::is_same_v<int, type2> = "
+            <<    cmb::is_same_v<int, type2> // = 1
             << std::endl;
 }

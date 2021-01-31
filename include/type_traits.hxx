@@ -1,7 +1,7 @@
 #ifndef TYPE_TRAITS_HXX
 #define TYPE_TRAITS_HXX
 
-
+#include <type_traits>
 namespace cmb {
 
 //
@@ -121,8 +121,8 @@ template <class T>                  struct remove_cvref;
 template <bool B, class T = void>   struct enable_if;
 template <bool B, class T, class F> struct conditional;
 
-//template <class T>
-//  using decay_t        = typename cmb::decay<T>::type;
+template <class T>
+  using decay_t        = typename cmb::decay<T>::type;
 template <class T>
   using remove_cvref_t = typename cmb::remove_cvref<T>::type;
 template <bool B, class T = void>
@@ -155,14 +155,16 @@ struct integral_constant {
 // non-public utility to detect referenceable types
 namespace detail
 {
+  //template <class T> struct is_referenceable;
+
   template <class T, class = void> struct is_referenceable
     : public cmb::false_type { };
 
   template <class T> struct is_referenceable<T, cmb::void_t<T&>>
     : public cmb::true_type { };
 
-//  template <class T, class void>
-//    constexpr bool is_referenceable_v = cmb::is_referenceable<T>::value;
+  template <class T>
+    constexpr bool is_referenceable_v = typename cmb::detail::is_referenceable<T>::value();
 }
 
 
@@ -199,6 +201,7 @@ namespace detail
   template <>        struct is_integral_impl<signed char>        : public cmb::true_type  { };
   template <>        struct is_integral_impl<unsigned char>      : public cmb::true_type  { };
   template <>        struct is_integral_impl<wchar_t>            : public cmb::true_type  { };
+  //template <>        struct is_integral_impl<wchar8_t>           : public cmb::true_type  { };
   template <>        struct is_integral_impl<char16_t>           : public cmb::true_type  { };
   template <>        struct is_integral_impl<char32_t>           : public cmb::true_type  { };
   template <>        struct is_integral_impl<short>              : public cmb::true_type  { };
@@ -357,7 +360,7 @@ template <class T> struct remove_reference<T&&> { using type = T; };
 // add_lvalue_reference
 namespace detail
 {
-  template <class T, bool = cmb::detail::is_referenceable<T>::value>
+  template <class T, bool = cmb::detail::is_referenceable_v<T>>
     struct add_lvalue_reference_impl          { using type = T;  };
 
   template <class T>
@@ -371,7 +374,7 @@ template <class T> struct add_lvalue_reference
 // add_rvalue_reference
 namespace detail
 {
-  template <class T, bool = cmb::detail::is_referenceable<T>::value>
+  template <class T, bool = cmb::detail::is_referenceable_v<T>>
     struct add_rvalue_reference_impl          { using type = T;   };
 
   template <class T>
@@ -383,8 +386,24 @@ template <class T> struct add_rvalue_reference
 
 
 // decay
+namespace detail
+{
+  template <class U, bool = cmb::is_array_v<U>, bool = std::is_function_v<U>>
+    struct decay_impl;
 
+  template <class U> struct decay_impl<U, false, false> { using type = cmb::remove_cv_t<U>;      };
+  template <class U> struct decay_impl<U, true,  false> { using type = std::remove_extent_t<U>*; };
+  template <class U> struct decay_impl<U, false, true > { using type = std::add_pointer_t<U>;    };
+}
 
+template <class T>
+class decay {
+private:
+  using remove_type = typename cmb::remove_reference<T>::type;
+
+public:
+  using type = typename cmb::detail::decay_impl<remove_type>::type;
+};
 
 
 // remove_cvref
