@@ -1,8 +1,6 @@
 #include <iostream>
 #include <type_traits.hxx>
 
-
-class A {};
  
 int main() 
 {
