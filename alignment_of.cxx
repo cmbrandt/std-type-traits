@@ -4,6 +4,9 @@
 
 int main()
 {
-  std::cout << "Done."
+  std::cout <<   "cmb::alignment_of<int>::value = "
+            <<    cmb::alignment_of<int>::value // = 4
+            << "\ncmb::alignment_of_v<double>   = "
+            <<    cmb::alignment_of_v<double>   // = 8
             << std::endl;
 }
