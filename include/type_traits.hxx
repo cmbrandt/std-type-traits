@@ -123,8 +123,8 @@ template <bool B, class T, class F> struct conditional;
 
 //template <class T>
 //  using decay_t        = typename cmb::decay<T>::type;
-//template <class T>
-//  using remove_cvref_t = typename cmb::remove_cvref<T>::type;
+template <class T>
+  using remove_cvref_t = typename cmb::remove_cvref<T>::type;
 template <bool B, class T = void>
   using enable_if_t    = typename cmb::enable_if<B,T>::type;
 template <bool B, class T, class F>
@@ -380,6 +380,23 @@ namespace detail
 
 template <class T> struct add_rvalue_reference
   : public cmb::detail::add_rvalue_reference_impl<T> { };
+
+
+// decay
+
+
+
+
+// remove_cvref
+namespace detail
+{
+  template <class T> struct remove_cvref_impl {
+    using type = cmb::remove_cv_t<cmb::remove_reference_t<T>>;
+  };
+}
+
+template <class T> struct remove_cvref
+  : public cmb::detail::remove_cvref_impl<T> { };
 
 
 // enable_if
