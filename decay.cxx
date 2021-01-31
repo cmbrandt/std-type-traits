@@ -4,7 +4,7 @@
 
 int main()
 {
-  using type1 = cmb::decay<int(int)>::type;
+  using type1 = cmb::decay<int[5]>::type;
   using type2 = cmb::decay_t<int const&&>;
 
   std::cout <<   "cmb::is_same_v<int, type1> = "

@@ -398,8 +398,9 @@ namespace detail
 
 template <class T>
 class decay {
+
 private:
-  using remove_type = typename cmb::remove_reference<T>::type;
+  using remove_type = cmb::remove_reference_t<T>;
 
 public:
   using type = typename cmb::detail::decay_impl<remove_type>::type;
