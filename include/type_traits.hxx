@@ -296,7 +296,7 @@ template <class T> struct rank<T[]>
 template <class T, std::size_t N> struct rank<T[N]>
   : public cmb::integral_constant<std::size_t, 1 + cmb::rank_v<T>> { };
 
-/*
+
 // extent
 template <class T, unsigned I> struct extent
   : public cmb::integral_constant<std::size_t, 0> { };
@@ -305,14 +305,14 @@ template <class T> struct extent<T[], 0>
   : public cmb::integral_constant<std::size_t, 0> { };
 
 template <class T, unsigned I> struct extent<T[], I>
-  : public cmb::extent_v<T, I-1> { };
+  : public cmb::extent<T, I-1> { };
 
 template <class T, std::size_t N> struct extent<T[N], 0>
   : public cmb::integral_constant<std::size_t, N> { };
 
 template <class T, std::size_t N, unsigned I> struct extent<T[N], I>
   : public cmb::integral_constant<std::size_t, cmb::extent_v<T, I-1>> { };
-*/
+
 
 // is_same
 template <class T, class U> struct is_same      : public cmb::false_type { };
