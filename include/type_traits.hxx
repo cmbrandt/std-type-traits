@@ -67,12 +67,13 @@ template <class T>                 struct alignment_of;
 template <class T>                 struct rank;
 template <class T, unsigned I = 0> struct extent; // check clang for formatting
 
-//template <class T>
-//  constexpr size_t alignment_of_v = cmb::alignment_of<T>::value;
-//template <class T>
-//  constexpr size_t rank_v         = cmb::rank<T>::value;
-//template <class T, unsigned I = 0>
-//  constexpr size_t extent_v       = cmb::extent<T,I>::value;
+template <class T>
+  constexpr size_t alignment_of_v = cmb::alignment_of<T>::value;
+template <class T>
+  constexpr size_t rank_v         = cmb::rank<T>::value;
+template <class T, unsigned I = 0>
+  constexpr size_t extent_v       = cmb::extent<T,I>::value;
+
 
 // Type relationships
 template <class T, class U> struct is_same;
@@ -161,8 +162,7 @@ namespace detail
 
 template <class T>
 struct is_void
-: public cmb::detail::is_void_impl<cmb::remove_cv_t<T>>
-{ };
+  : public cmb::detail::is_void_impl<cmb::remove_cv_t<T>> { };
 
 
 // is_null_pointer
@@ -174,8 +174,7 @@ namespace detail
 
 template <class T>
 struct is_null_pointer
-: public cmb::detail::is_null_pointer_impl<cmb::remove_cv_t<T>>
-{ };
+  : public cmb::detail::is_null_pointer_impl<cmb::remove_cv_t<T>> { };
 
 
 // is_integral [note: wchar8_t is C++20]
@@ -201,8 +200,7 @@ namespace detail
 
 template <class T>
 struct is_integral
-: public cmb::detail::is_integral_impl<cmb::remove_cv_t<T>>
-{ };
+  : public cmb::detail::is_integral_impl<cmb::remove_cv_t<T>> { };
 
 
 // is_floating_point
@@ -216,14 +214,13 @@ namespace detail
 
 template <class T>
 struct is_floating_point
-: public cmb::detail::is_floating_point_impl<cmb::remove_cv_t<T>>
-{ };
+  : public cmb::detail::is_floating_point_impl<cmb::remove_cv_t<T>> { };
 
 
 // is_array
 template <class T>           struct is_array       : public cmb::false_type { };
-template <class T, size_t N> struct is_array<T[N]> : public cmb::true_type  { };
 template <class T>           struct is_array<T[]>  : public cmb::true_type  { };
+template <class T, size_t N> struct is_array<T[N]> : public cmb::true_type  { };
 
 
 // is_pointer
@@ -234,8 +231,7 @@ namespace detail
 }
 
 template <class T> struct is_pointer
-: public cmb::detail::is_pointer_impl<cmb::remove_cv_t<T>>
-{ };
+  : public cmb::detail::is_pointer_impl<cmb::remove_cv_t<T>> { };
 
 
 // is_lvalue_reference
@@ -256,23 +252,45 @@ template <class _Tp> struct is_reference<T&&> : public cmb::true_type  { };
 
 // is_arithmetic
 template <class T> struct is_arithmetic
-: public cmb::integral_constant<bool, cmb::is_integral_v<T> or cmb::is_floating_point_v<T>>
-{ };
+  : public cmb::integral_constant<bool, cmb::is_integral_v<T> or cmb::is_floating_point_v<T>> { };
 
 
 // is_fundamental
 template <class T> struct is_fundamental
-: public cmb::integral_constant<bool,
-                                cmb::is_arithmetic_v<T> or
-                                cmb::is_void_v<T> or
-                                cmb::is_null_pointer_v<T>>
-{ };
+  : public cmb::integral_constant<bool,
+                                  cmb::is_arithmetic_v<T> or
+                                  cmb::is_void_v<T> or
+                                  cmb::is_null_pointer_v<T>> { };
 
 
 // is_compound
 template <class T> struct is_compound
-: public cmb::integral_constant<bool, not cmb::is_fundamental_v<T>>
-{ };
+  : public cmb::integral_constant<bool, not cmb::is_fundamental_v<T>> { };
+
+
+// alignment_of
+template <class T> struct alignment_of
+  : public cmb::integral_constant<std::size_t, alignof(T)> { };
+
+
+// rank
+template <class T> struct rank
+  : public cmb::integral_constant_v<std::size_t, 0> { };
+
+template <class T, std::size_t N> struct rank<T[]>
+  : public cmb::integral_constant_v<std::size_t, 1 + cmb::rank_v<T>> { };
+
+template <class T, std::size_t N> struct rank<T[N]>
+  : public cmb::integral_constant_v<std::size_t, 1 + cmb::rank_v<T>> { };
+
+
+// extent
+template <class T, unsigned I> struct extent
+  : public cmb::integral_constant<std::size_t, 0> { };
+
+template <class T, unsigned I, std::size_t N> struct extent
+  : public cmb::integral_constant<std::size_t, 0> { };
+
 
 
 // is_same
