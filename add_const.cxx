@@ -1,5 +1,3 @@
-// add_const.cxx
-
 #include <iostream>
 #include <type_traits.hxx>
 

@@ -1,5 +1,3 @@
-// type_traits.hxx
-
 #ifndef TYPE_TRAITS_HXX
 #define TYPE_TRAITS_HXX
 
@@ -143,11 +141,11 @@ template <class...>
 // non-public utility to detect referenceable types
 namespace detail
 {
-  template <class T, class void> struct is_referenceable
-    : public cmb::false_type { };
+  //template <class T, class = void> struct is_referenceable
+  //  : public cmb::false_type { };
 
-  template <class T> struct is_referenceable<T, cmb::void_t<T&>>
-    : public cmb::true_type { };
+  //template <class T> struct is_referenceable<T, cmb::void_t<T&>>
+  //  : public cmb::true_type { };
 
 //  template <class T, class void>
 //    constexpr bool is_referenceable_v = cmb::is_referenceable<T>::value;
@@ -260,9 +258,9 @@ template <class T> struct is_rvalue_reference<T&&> : public cmb::true_type  { };
 
 
 // is_reference
-template <class _Tp> struct is_reference      : public cmb::false_type { };
-template <class _Tp> struct is_reference<T&>  : public cmb::true_type  { };
-template <class _Tp> struct is_reference<T&&> : public cmb::true_type  { };
+template <class T> struct is_reference      : public cmb::false_type { };
+template <class T> struct is_reference<T&>  : public cmb::true_type  { };
+template <class T> struct is_reference<T&&> : public cmb::true_type  { };
 
 
 // is_arithmetic
@@ -287,7 +285,7 @@ template <class T> struct is_compound
 template <class T> struct alignment_of
   : public cmb::integral_constant<std::size_t, alignof(T)> { };
 
-
+/*
 // rank
 template <class T> struct rank
   : public cmb::integral_constant_v<std::size_t, 0> { };
@@ -300,7 +298,7 @@ template <class T, std::size_t N> struct rank<T[N]>
 
 
 // extent
-template <class T, unsigned I = 0> struct extent
+template <class T, unsigned I> struct extent
   : public cmb::integral_constant<std::size_t, 0> { };
 
 template <class T> struct extent<T[], 0>
@@ -314,7 +312,7 @@ template <class T, std::size_t N> struct extent<T[N], 0>
 
 template <class T, std::size_t N, unsigned I> struct extent<T[N], I>
   : public cmb::integral_constant<std::size_t, cmb::extent_v<T, I-1>> { };
-
+*/
 
 // is_same
 template <class T, class U> struct is_same      : public cmb::false_type { };
@@ -355,7 +353,7 @@ template <class T> struct remove_reference      { using type = T; };
 template <class T> struct remove_reference<T&>  { using type = T; };
 template <class T> struct remove_reference<T&&> { using type = T; };
 
-
+/*
 // add_lvalue_reference
 namespace detail
 {
@@ -382,7 +380,7 @@ namespace detail
 
 template <class T> struct add_rvalue_reference
   : public add_rvalue_reference_impl<T> { };
-
+*/
 
 // enable_if
 template <bool B, class T> struct enable_if          { };

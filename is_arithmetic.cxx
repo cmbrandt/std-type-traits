@@ -1,5 +1,3 @@
-// is_arithmetic.cxx
-
 #include <iostream>
 #include <type_traits.hxx>
 

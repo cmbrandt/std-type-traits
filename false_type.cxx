@@ -1,5 +1,3 @@
-// false_type.cxx
-
 #include <iostream>
 #include <type_traits.hxx>
 

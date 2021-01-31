@@ -1,5 +1,3 @@
-// integral_constant.cxx
-
 #include <iostream>
 #include <type_traits.hxx>
 

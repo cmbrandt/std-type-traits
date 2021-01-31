@@ -1,5 +1,3 @@
-// is_null_pointer.cxx
-
 #include <iostream>
 #include <type_traits.hxx>
 

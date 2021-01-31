@@ -1,5 +1,3 @@
-// add_cv.cxx
-
 #include <iostream>
 #include <type_traits.hxx>
 

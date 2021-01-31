@@ -1,5 +1,3 @@
-// add_volatile.cxx
-
 #include <iostream>
 #include <type_traits.hxx>
 

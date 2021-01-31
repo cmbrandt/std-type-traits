@@ -1,5 +1,3 @@
-// is_rvalue_reference.cxx
-
 #include <iostream>
 #include <type_traits.hxx>
 

@@ -1,5 +1,3 @@
-// is_floating_point.cxx
-
 #include <iostream>
 #include <type_traits.hxx>
 

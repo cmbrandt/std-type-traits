@@ -1,5 +1,3 @@
-// void_t.cxx
-
 #include <iostream>
 #include <type_traits.hxx>
 

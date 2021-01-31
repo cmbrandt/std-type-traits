@@ -1,5 +1,3 @@
-// is_array.cxx
-
 #include <iostream>
 #include <type_traits.hxx>
 

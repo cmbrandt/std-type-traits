@@ -1,5 +1,3 @@
-// is_void.cxx
-
 #include <iostream>
 #include <type_traits.hxx>
 

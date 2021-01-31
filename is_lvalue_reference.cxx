@@ -1,5 +1,3 @@
-// is_lvalue_reference.cxx
-
 #include <iostream>
 #include <type_traits.hxx>
 
