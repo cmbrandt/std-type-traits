@@ -52,14 +52,14 @@ template <class T> struct is_arithmetic;
 template <class T> struct is_fundamental;
 template <class T> struct is_compound;
 
-//template <class T>
-//  constexpr bool is_reference_v   = cmb::is_reference<T>::value;
+template <class T>
+  constexpr bool is_reference_v   = cmb::is_reference<T>::value;
 template <class T>
   constexpr bool is_arithmetic_v  = cmb::is_arithmetic<T>::value;
-//template <class T>
-//  constexpr bool is_fundamental_v = cmb::is_fundamental<T>::value;
-//template <class T>
-//  constexpr bool is_compound_v    = cmb::is_compound<T>::value;
+template <class T>
+  constexpr bool is_fundamental_v = cmb::is_fundamental<T>::value;
+template <class T>
+  constexpr bool is_compound_v    = cmb::is_compound<T>::value;
 
 
 // Type property queries
@@ -248,9 +248,30 @@ template <class T> struct is_rvalue_reference      : public cmb::false_type { };
 template <class T> struct is_rvalue_reference<T&&> : public cmb::true_type  { };
 
 
+// is_reference
+template <class _Tp> struct is_reference      : public cmb::false_type { };
+template <class _Tp> struct is_reference<T&>  : public cmb::true_type  { };
+template <class _Tp> struct is_reference<T&&> : public cmb::true_type  { };
+
+
 // is_arithmetic
 template <class T> struct is_arithmetic
 : public cmb::integral_constant<bool, cmb::is_integral_v<T> or cmb::is_floating_point_v<T>>
+{ };
+
+
+// is_fundamental
+template <class T> struct is_fundamental
+: public cmb::integral_constant<bool,
+                                cmb::is_arithmetic_v<T> or
+                                cmb::is_void_v<T> or
+                                cmb::is_null_pointer_v<T>>
+{ };
+
+
+// is_compound
+template <class T> struct is_compound
+: public cmb::integral_constant<bool, not cmb::is_fundamental_v<T>>
 { };
 
 
