@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <typeinfo>
-#include "include/type_traits.hxx"
+#include <type_traits.hxx>
 
 
 int main()

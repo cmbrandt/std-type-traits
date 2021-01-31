@@ -113,8 +113,8 @@ template <class T>
   using remove_reference_t     = typename cmb::remove_reference<T>::type;
 template <class T>
   using add_lvalue_reference_t = typename cmb::remove_reference<T>::type;
-//template <class T>
-//  using add_rvalue_reference_t = typename cmb::remove_reference<T>::type;
+template <class T>
+  using add_rvalue_reference_t = typename cmb::remove_reference<T>::type;
 
 
 // Other transformations
