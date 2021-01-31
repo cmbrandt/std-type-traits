@@ -110,9 +110,9 @@ template <class T> struct add_rvalue_reference;
 template <class T>
   using remove_reference_t     = typename cmb::remove_reference<T>::type;
 template <class T>
-  using add_lvalue_reference_t = typename cmb::remove_reference<T>::type;
+  using add_lvalue_reference_t = typename cmb::add_lvalue_reference<T>::type;
 template <class T>
-  using add_rvalue_reference_t = typename cmb::remove_reference<T>::type;
+  using add_rvalue_reference_t = typename cmb::add_rvalue_reference<T>::type;
 
 
 // Other transformations
@@ -138,20 +138,6 @@ template <class...>
 //
 // Definitions
 
-// non-public utility to detect referenceable types
-namespace detail
-{
-  //template <class T, class = void> struct is_referenceable
-  //  : public cmb::false_type { };
-
-  //template <class T> struct is_referenceable<T, cmb::void_t<T&>>
-  //  : public cmb::true_type { };
-
-//  template <class T, class void>
-//    constexpr bool is_referenceable_v = cmb::is_referenceable<T>::value;
-}
-
-
 // integral_constant
 template <class T, T v>
 struct integral_constant {
@@ -164,6 +150,20 @@ struct integral_constant {
   constexpr operator   value_type() const noexcept { return value; }
   constexpr value_type operator()() const noexcept { return value; }
 };
+
+
+// non-public utility to detect referenceable types
+namespace detail
+{
+  template <class T, class = void> struct is_referenceable
+    : public cmb::false_type { };
+
+  template <class T> struct is_referenceable<T, cmb::void_t<T&>>
+    : public cmb::true_type { };
+
+//  template <class T, class void>
+//    constexpr bool is_referenceable_v = cmb::is_referenceable<T>::value;
+}
 
 
 // is_void
@@ -353,7 +353,7 @@ template <class T> struct remove_reference      { using type = T; };
 template <class T> struct remove_reference<T&>  { using type = T; };
 template <class T> struct remove_reference<T&&> { using type = T; };
 
-/*
+
 // add_lvalue_reference
 namespace detail
 {
@@ -365,7 +365,7 @@ namespace detail
 }
 
 template <class T> struct add_lvalue_reference
-  : public add_lvalue_reference_impl<T> { };
+  : public cmb::detail::add_lvalue_reference_impl<T> { };
 
 
 // add_rvalue_reference
@@ -379,8 +379,8 @@ namespace detail
 }
 
 template <class T> struct add_rvalue_reference
-  : public add_rvalue_reference_impl<T> { };
-*/
+  : public cmb::detail::add_rvalue_reference_impl<T> { };
+
 
 // enable_if
 template <bool B, class T> struct enable_if          { };

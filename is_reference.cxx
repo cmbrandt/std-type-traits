@@ -1,7 +1,7 @@
 #include <iostream>
 #include <type_traits.hxx>
 
- 
+
 int main() 
 {
   std::cout <<   "cmb::is_reference<int>::value = "
