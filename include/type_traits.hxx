@@ -65,7 +65,7 @@ template <class T>
 // Type property queries
 template <class T>                 struct alignment_of;
 template <class T>                 struct rank;
-template <class T, unsigned I = 0> struct extent; // check clang for formatting
+template <class T, unsigned I = 0> struct extent;
 
 template <class T>
   constexpr size_t alignment_of_v = cmb::alignment_of<T>::value;
@@ -109,16 +109,16 @@ template <class T> struct remove_reference;
 template <class T> struct add_lvalue_reference;
 template <class T> struct add_rvalue_reference;
 
-//template <class T>
-//  using remove_reference_t     = typename cmb::remove_reference<T>::type;
-//template <class T>
-//  using add_lvalue_reference_t = typename cmb::remove_reference<T>::type;
+template <class T>
+  using remove_reference_t     = typename cmb::remove_reference<T>::type;
+template <class T>
+  using add_lvalue_reference_t = typename cmb::remove_reference<T>::type;
 //template <class T>
 //  using add_rvalue_reference_t = typename cmb::remove_reference<T>::type;
 
 
 // Other transformations
-template <class T>                  struct decay; // check clang for formatting
+template <class T>                  struct decay;
 template <class T>                  struct remove_cvref;
 template <bool B, class T = void>   struct enable_if;
 template <bool B, class T, class F> struct conditional;
@@ -136,8 +136,23 @@ template <class...>
   using void_t = void;
 
 
+
 //
 // Definitions
+
+// non-public utility to detect referenceable types
+namespace detail
+{
+  template <class T, class void> struct is_referenceable
+    : public cmb::false_type { };
+
+  template <class T> struct is_referenceable<T, cmb::void_t<T&>>
+    : public cmb::true_type { };
+
+//  template <class T, class void>
+//    constexpr bool is_referenceable_v = cmb::is_referenceable<T>::value;
+}
+
 
 // integral_constant
 template <class T, T v>
@@ -298,7 +313,7 @@ template <class T, std::size_t N> struct extent<T[N], 0>
   : public cmb::integral_constant<std::size_t, N> { };
 
 template <class T, std::size_t N, unsigned I> struct extent<T[N], I>
-  : public cmb::integral_constant<std::size_t, cmb::extent_v<T, I-1> { };
+  : public cmb::integral_constant<std::size_t, cmb::extent_v<T, I-1>> { };
 
 
 // is_same
@@ -333,6 +348,40 @@ template <class T> struct add_volatile { using type = T volatile; };
 
 // add_cv
 template <class T> struct add_cv { using type = T const volatile; };
+
+
+// remove_reference
+template <class T> struct remove_reference      { using type = T; };
+template <class T> struct remove_reference<T&>  { using type = T; };
+template <class T> struct remove_reference<T&&> { using type = T; };
+
+
+// add_lvalue_reference
+namespace detail
+{
+  template <class T, bool = cmb::detail::is_referenceable<T>::value>
+    struct add_lvalue_reference_impl          { using type = T;  };
+
+  template <class T>
+    struct add_lvalue_reference_impl<T, true> { using type = T&; };
+}
+
+template <class T> struct add_lvalue_reference
+  : public add_lvalue_reference_impl<T> { };
+
+
+// add_rvalue_reference
+namespace detail
+{
+  template <class T, bool = cmb::detail::is_referenceable<T>::value>
+    struct add_rvalue_reference_impl          { using type = T;   };
+
+  template <class T>
+    struct add_rvalue_reference_impl<T, true> { using type = T&&; };
+}
+
+template <class T> struct add_rvalue_reference
+  : public add_rvalue_reference_impl<T> { };
 
 
 // enable_if
