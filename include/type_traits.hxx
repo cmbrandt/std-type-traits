@@ -268,20 +268,18 @@ template <class T> struct is_reference<T&&> : public cmb::true_type  { };
 
 // is_arithmetic
 template <class T> struct is_arithmetic
-  : public cmb::integral_constant<bool, cmb::is_integral_v<T> or cmb::is_floating_point_v<T>> { };
-
+  : public cmb::bool_constant<cmb::is_integral_v<T> or cmb::is_floating_point_v<T>> { };
 
 // is_fundamental
 template <class T> struct is_fundamental
-  : public cmb::integral_constant<bool,
-                                  cmb::is_arithmetic_v<T> or
-                                  cmb::is_void_v<T> or
-                                  cmb::is_null_pointer_v<T>> { };
+  : public cmb::bool_constant<cmb::is_arithmetic_v<T> or
+                              cmb::is_void_v<T> or
+                              cmb::is_null_pointer_v<T>> { };
 
 
 // is_compound
 template <class T> struct is_compound
-  : public cmb::integral_constant<bool, not cmb::is_fundamental_v<T>> { };
+  : public cmb::bool_constant<not cmb::is_fundamental_v<T>> { };
 
 
 // alignment_of
